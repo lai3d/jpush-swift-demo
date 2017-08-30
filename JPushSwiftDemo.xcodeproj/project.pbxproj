@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62343EA71DFFC2BC00DF77D0 /* jcore-ios-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62343EA41DFFC2BC00DF77D0 /* jcore-ios-1.0.0.a */; };
-		62343EA81DFFC2BC00DF77D0 /* jpush-ios-3.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62343EA51DFFC2BC00DF77D0 /* jpush-ios-3.0.0.a */; };
+		282DF69C1F565965004249BE /* jpush-ios-3.0.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 282DF69B1F565965004249BE /* jpush-ios-3.0.6.a */; };
+		282DF69F1F565979004249BE /* jcore-ios-1.1.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 282DF69D1F565979004249BE /* jcore-ios-1.1.5.a */; };
 		62343EAB1DFFC3C000DF77D0 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62343EAA1DFFC3C000DF77D0 /* libresolv.tbd */; };
 		6296C8AB1C92954500FA965C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6296C8AA1C92954500FA965C /* AppDelegate.swift */; };
 		6296C8B21C92954500FA965C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6296C8B11C92954500FA965C /* Assets.xcassets */; };
@@ -60,9 +60,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		62343EA41DFFC2BC00DF77D0 /* jcore-ios-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.0.0.a"; sourceTree = "<group>"; };
-		62343EA51DFFC2BC00DF77D0 /* jpush-ios-3.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.0.a"; sourceTree = "<group>"; };
-		62343EA61DFFC2BC00DF77D0 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		282DF69B1F565965004249BE /* jpush-ios-3.0.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.6.a"; sourceTree = "<group>"; };
+		282DF69D1F565979004249BE /* jcore-ios-1.1.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.5.a"; sourceTree = "<group>"; };
+		282DF69E1F565979004249BE /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		62343EAA1DFFC3C000DF77D0 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		6296C8A71C92954500FA965C /* JPushSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JPushSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6296C8AA1C92954500FA965C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,12 +115,12 @@
 				6296C8F71C929BAA00FA965C /* CFNetwork.framework in Frameworks */,
 				6296C8F51C929BA200FA965C /* CoreFoundation.framework in Frameworks */,
 				6296C8F31C929B9B00FA965C /* CoreTelephony.framework in Frameworks */,
-				62343EA71DFFC2BC00DF77D0 /* jcore-ios-1.0.0.a in Frameworks */,
 				6296C8F11C929B7A00FA965C /* SystemConfiguration.framework in Frameworks */,
+				282DF69F1F565979004249BE /* jcore-ios-1.1.5.a in Frameworks */,
 				6296C8EF1C929B6D00FA965C /* CoreGraphics.framework in Frameworks */,
+				282DF69C1F565965004249BE /* jpush-ios-3.0.6.a in Frameworks */,
 				6296C8ED1C929B6800FA965C /* Foundation.framework in Frameworks */,
 				6296C8EB1C929B6200FA965C /* Security.framework in Frameworks */,
-				62343EA81DFFC2BC00DF77D0 /* jpush-ios-3.0.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,9 +211,9 @@
 		6296C8D81C9296E800FA965C /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				62343EA41DFFC2BC00DF77D0 /* jcore-ios-1.0.0.a */,
-				62343EA51DFFC2BC00DF77D0 /* jpush-ios-3.0.0.a */,
-				62343EA61DFFC2BC00DF77D0 /* JPUSHService.h */,
+				282DF69D1F565979004249BE /* jcore-ios-1.1.5.a */,
+				282DF69E1F565979004249BE /* JPUSHService.h */,
+				282DF69B1F565965004249BE /* jpush-ios-3.0.6.a */,
 				6296C8FA1C929BC300FA965C /* libz.tbd */,
 				6296C8F81C929BBA00FA965C /* UIKit.framework */,
 				6296C8F61C929BAA00FA965C /* CFNetwork.framework */,
@@ -329,9 +329,12 @@
 				TargetAttributes = {
 					6296C8A61C92954500FA965C = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = RL64Y54S9V;
+						DevelopmentTeam = 4NWP6U2626;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -560,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JPushSwiftDemo/JPushSwiftDemo.entitlements;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
+				DEVELOPMENT_TEAM = 4NWP6U2626;
 				INFOPLIST_FILE = JPushSwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -568,7 +571,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JPushSwiftDemo",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.huminios.jpushTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superfun.sssauth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JPushSwiftDemo/JPushSwiftDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -582,7 +585,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = JPushSwiftDemo/JPushSwiftDemo.entitlements;
-				DEVELOPMENT_TEAM = RL64Y54S9V;
+				DEVELOPMENT_TEAM = 4NWP6U2626;
 				INFOPLIST_FILE = JPushSwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -590,7 +593,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JPushSwiftDemo",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.huminios.jpushTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.superfun.sssauth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "JPushSwiftDemo/JPushSwiftDemo-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

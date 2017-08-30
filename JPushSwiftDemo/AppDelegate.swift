@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-let appKey = "a1703c14b186a68a66ef86c1"
+let appKey = "0387578a8df84d3248e22952"
 let channel = "Publish channel"
 let isProduction = false
 
@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
         NSInteger(UNAuthorizationOptions.sound.rawValue) |
         NSInteger(UNAuthorizationOptions.badge.rawValue)
       JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self)
-      
     } else if #available(iOS 8, *) {
       // 可以自定义 categories
       JPUSHService.register(
@@ -52,32 +51,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
   
   @available(iOS 10.0, *)
   func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
-
-//    let userInfo = response.notification.request.content.userInfo
-//    let request = response.notification.request // 收到推送的请求
-//    let content = request.content // 收到推送的消息内容
-//    
-//    let badge = content.badge // 推送消息的角标
-//    let body = content.body   // 推送消息体
-//    let sound = content.sound // 推送消息的声音
-//    let subtitle = content.subtitle // 推送消息的副标题
-//    let title = content.title // 推送消息的标题
-
+    
+    print("==== didReceive response")
+    
+    let userInfo = response.notification.request.content.userInfo
+    let request = response.notification.request // 收到推送的请求
+    let content = request.content // 收到推送的消息内容
+    
+    let badge = content.badge // 推送消息的角标
+    let body = content.body   // 推送消息体
+    let sound = content.sound // 推送消息的声音
+    let subtitle = content.subtitle // 推送消息的副标题
+    let title = content.title // 推送消息的标题
+    
+    if(response.notification.request.trigger is UNPushNotificationTrigger) {
+        JPUSHService.handleRemoteNotification(userInfo);
+        let strUserInfo = self.logDic(userInfo as NSDictionary)
+        print("iOS10 收到远程通知: \(String(describing: strUserInfo))")
+        //[rootViewController addNotificationCount];
+    }
+    else {
+        // 判断为本地通知
+        print("iOS10 收到本地通知:{\nbody:\(body)，\ntitle:\(title),\nsubtitle:\(subtitle),\nbadge：\(String(describing: badge))，\nsound：\(String(describing: sound))，\nuserInfo：\(userInfo)\n}")
+    }
+    
+    completionHandler();  // 系统要求执行这个方法
   }
   
   @available(iOS 10.0, *)
   func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!,
                                withCompletionHandler completionHandler: ((Int) -> Void)!) {
-//    let userInfo = notification.request.content.userInfo
-//    
-//    let request = notification.request // 收到推送的请求
-//    let content = request.content // 收到推送的消息内容
-//    
-//    let badge = content.badge // 推送消息的角标
-//    let body = content.body   // 推送消息体
-//    let sound = content.sound // 推送消息的声音
-//    let subtitle = content.subtitle // 推送消息的副标题
-//    let title = content.title // 推送消息的标题
+    
+    print("++++ willPresent notification")
+    
+    let userInfo = notification.request.content.userInfo
+    
+    let request = notification.request // 收到推送的请求
+    let content = request.content // 收到推送的消息内容
+    
+    let badge = content.badge // 推送消息的角标
+    let body = content.body   // 推送消息体
+    let sound = content.sound // 推送消息的声音
+    let subtitle = content.subtitle // 推送消息的副标题
+    let title = content.title // 推送消息的标题
+    
+    if(notification.request.trigger is UNPushNotificationTrigger) {
+        JPUSHService.handleRemoteNotification(userInfo);
+        let strUserInfo = self.logDic(userInfo as NSDictionary)
+        print("iOS10 前台收到远程通知: \(String(describing: strUserInfo))")
+        
+//        [rootViewController addNotificationCount];
+    }
+    else {
+        // 判断为本地通知
+        print("iOS10 前台收到本地通知:{\nbody:\(body)，\ntitle:\(title),\nsubtitle:\(subtitle),\nbadge：\(String(describing: badge))，\nsound：\(String(describing: sound))，\nuserInfo：\(userInfo)\n}")
+
+    }
+    completionHandler(Int(UNNotificationPresentationOptions.badge.rawValue |
+        UNNotificationPresentationOptions.sound.rawValue |
+        UNNotificationPresentationOptions.alert.rawValue)) // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
   }
   
   func applicationWillResignActive(_ application: UIApplication) {
@@ -139,7 +171,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
     
   }
   
-
+    
+    // log NSSet with UTF8
+    // if not ,log will be \Uxxx
+    func logDic(_ dic:NSDictionary) -> String? {
+        if dic.count == 0 {
+            return nil
+        }
+        
+        _ = dic.description.replacingOccurrences(of: "\\u", with: "\\U")
+        let tempStr2 = dic.description.replacingOccurrences(of: "\"", with: "\\\"")
+        let tempStr3 = "\"" + tempStr2 + "\""
+        let tempData:Data = (tempStr3 as NSString).data(using: String.Encoding.utf8.rawValue)!
+        let str = (String)(describing: PropertyListSerialization.propertyListFromData(tempData, mutabilityOption:PropertyListSerialization.MutabilityOptions(), format:nil, errorDescription: nil))
+        return str
+    }
   
 }
 
