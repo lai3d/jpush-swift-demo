@@ -179,8 +179,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
             return nil
         }
         
-        _ = dic.description.replacingOccurrences(of: "\\u", with: "\\U")
-        let tempStr2 = dic.description.replacingOccurrences(of: "\"", with: "\\\"")
+        let tempStr1 = dic.description.replacingOccurrences(of: "\\u", with: "\\U")
+        let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
         let tempStr3 = "\"" + tempStr2 + "\""
         let tempData:Data = (tempStr3 as NSString).data(using: String.Encoding.utf8.rawValue)!
         let str = (String)(describing: PropertyListSerialization.propertyListFromData(tempData, mutabilityOption:PropertyListSerialization.MutabilityOptions(), format:nil, errorDescription: nil))

@@ -34,6 +34,7 @@ class RootViewController: UIViewController {
     defaultCenter.addObserver(self, selector: #selector(RootViewController.networkDidLogin(_:)), name:NSNotification.Name.jpfNetworkDidLogin, object: nil)
     defaultCenter.addObserver(self, selector: #selector(RootViewController.networkDidReceiveMessage(_:)), name:NSNotification.Name.jpfNetworkDidReceiveMessage, object: nil)
     defaultCenter.addObserver(self, selector: #selector(RootViewController.serviceError(_:)), name:NSNotification.Name.jpfServiceError, object: nil)
+    
     registrationValueLabel.text = JPUSHService.registrationID()
     appKeyLabel.text = appKey
     
@@ -91,46 +92,57 @@ class RootViewController: UIViewController {
     }
   }
   
-  func logDic(_ dic:NSDictionary)->String? {
+  func logDic(_ dic:NSDictionary) -> String? {
     if dic.count == 0 {
       return nil
     }
     
     let tempStr1 = dic.description.replacingOccurrences(of: "\\u", with: "\\U")
-    let tempStr2 = dic.description.replacingOccurrences(of: "\"", with: "\\\"")
+    let tempStr2 = tempStr1.replacingOccurrences(of: "\"", with: "\\\"")
     let tempStr3 = "\"" + tempStr2 + "\""
     let tempData:Data = (tempStr3 as NSString).data(using: String.Encoding.utf8.rawValue)!
     let str = (String)(describing: PropertyListSerialization.propertyListFromData(tempData, mutabilityOption:PropertyListSerialization.MutabilityOptions(), format:nil, errorDescription: nil))
     return str
-    
   }
   
   func networkDidReceiveMessage(_ notification:Notification) {
-    var userInfo = (notification as NSNotification).userInfo as? Dictionary<String,String>
-    let title = userInfo!["title"]
-    let content = userInfo!["content"]
-    let extra = userInfo?["ID"] as? NSDictionary
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-
-    let currentContent = "收到自定义消息: \(DateFormatter.localizedString(from: Date(), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.medium)) tittle: \(title) content: \(content) extra: \(self.logDic(extra!))"
-    messageContents.insert(currentContent, at: 0)
+    print("===== networkDidReceiveMessage")
     
-    let allContent = "收到消息: \(DateFormatter.localizedString(from: Date(), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.medium)) extra \(self.logDic(extra!))"
-    messageContentView.text = allContent
+    var userInfo = (notification as NSNotification).userInfo as? Dictionary<String,String>
+    
+    if (userInfo != nil) {
+        let title = userInfo!["title"]
+        let content = userInfo!["content"]
+        //let extra = userInfo?["extras"] as? NSDictionary
+        let extra = userInfo?["extras"]
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        
+        let currentContent = "收到自定义消息: \(DateFormatter.localizedString(from: Date(), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.medium)) title: \(String(describing: title)) content: \(String(describing: content)) extra: \(String(describing: extra ?? ""))"
+        print("currentContent: \(currentContent)")
+        messageContents.insert(currentContent, at:0)
+
+        let allContent = "\(DateFormatter.localizedString(from: Date(), dateStyle: DateFormatter.Style.none, timeStyle: DateFormatter.Style.medium)) 收到消息: \n\(messageContents.componentsJoined(by: ", ")) \nextra \(String(describing: extra ?? ""))"
+        print("allContent: \(allContent)")
+        messageContentView.text = allContent
+    } else {
+        messageContentView.text = "nil"
+    }
+    
     messageCount += 1
     self.reloadMessageCountLabel()
   }
-  
+    
   func serviceError(_ notification:Notification) {
     let userInfo = (notification as NSNotification).userInfo as? Dictionary<String,String>
     let error = userInfo!["error"]
-    print(error)
+    print(error ?? "$$$ error")
   }
 
   func didRegisterRemoteNotification(_ notification:Notification) {
     let deviceTokenStr = notification.object
-    deviceTokenValue.text = "\(deviceTokenStr)"
+    deviceTokenValue.text = "\(String(describing: deviceTokenStr))"
   }
   
   func reloadMessageCountLabel() {
